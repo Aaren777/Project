@@ -1,3 +1,5 @@
+import React from 'react'
+
 function User(props) { 
     return (
     <div>
@@ -6,6 +8,4 @@ function User(props) {
     )
 }
 
-
-console.log('User', User)
 export default User
