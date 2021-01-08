@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class ToDo extends Component {
     state = {
         inputValue: '',
-        tasks: ['asdad', 'asdad']
+        tasks: []
     };
 
     handeleChange = (event)=>{
