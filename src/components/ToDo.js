@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Styles from './toDo.module.css';
-import { Container, Row, Col, Button, Card, InputGroup, Form, FormControl } from 'react-bootstrap'
+import { Container, Row, Col, Button, Card, InputGroup, FormControl } from 'react-bootstrap'
 import idGenerator from '../helpers/idGenerator';
 
 class ToDo extends Component {
