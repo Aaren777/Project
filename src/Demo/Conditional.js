@@ -25,7 +25,7 @@ class Conditional extends Component {
         const { text1, text2, showFirst, name, showName } = this.state;
 
         return (
-            <div>
+            <div className={styles.block}>
                 { showFirst ?
                     <h2>{text1}</h2> :
                     <h2>{text2}</h2>
@@ -50,4 +50,3 @@ class Conditional extends Component {
         )
     }
 }
-export default Conditional
