@@ -3,17 +3,27 @@ import { Button, Card, } from 'react-bootstrap';
 import Styles from './task.module.css';
 
 class Task extends Component {
-
+state = {
+    selected: false
+};
+handleChange = () => {
+    const {onToggle, data} = this.props
+    onToggle(data._id)
+    this.setState({
+        selected: !this.state.selected
+    });
+};
     render() {
         
         const task = this.props.data;
-        
+        const{disabled, onDelete} = this.props
+        const{selected} = this.state
         return (
-            <Card className={Styles.task} >
+            <Card className={`${Styles.task} ${selected ? Styles.selected : ""}`} >
                 <Card.Body>
                     <input
                         type="checkbox"
-                        onChange={() => this.props.onToggle(task._id)}
+                        onChange={this.handleChange}
                     />
                     <Card.Title>{task.title}</Card.Title>
                     <Card.Text>
@@ -22,8 +32,8 @@ class Task extends Component {
                     </Card.Text>
                     <Button
                         variant="danger"
-                        // disabled={!!selectedTask.size}
-                        onClick={() => this.deleteTask(task._id)}
+                        disabled={disabled}
+                        onClick={() => onDelete(task._id)}
                     >
                         Delete</Button>
                 </Card.Body>
