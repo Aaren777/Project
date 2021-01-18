@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Styles from './toDo.module.css';
-import { Container, Row, Col, Button, Card, InputGroup, FormControl } from 'react-bootstrap'
-import idGenerator from '../helpers/idGenerator';
+// import Styles from './toDo.module.css';
+import { Container, Row, Col, Button, InputGroup, FormControl } from 'react-bootstrap'
+import idGenerator from '../../helpers/idGenerator';
+import Task from '../Task/task'
 
 class ToDo extends Component {
     state = {
@@ -31,7 +32,7 @@ class ToDo extends Component {
         });
     };
     deleteTask = (taskId) => {
-        const newTask = this.state.tasks.filter((task) => taskId !== task._id)
+        const newTask = this.state.tasks.filter((task) => taskId !== task._id);
         this.setState({
             tasks: newTask
         });
@@ -74,25 +75,12 @@ class ToDo extends Component {
                     md={4}
                     lg={3}
                     xl={2}>
-                    <Card className={Styles.task} >
-                        <Card.Body>
-                            <input
-                                type="checkbox"
-                                onChange={() => this.toggleTask(task._id)}
-                            />
-                            <Card.Title>{task.title}</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
-                        </Card.Text>
-                            <Button
-                                variant="danger"
-                                disabled={!!selectedTask.size}
-                                onClick={() => this.deleteTask(task._id)}
-                            >
-                                Delete</Button>
-                        </Card.Body>
-                    </Card>
+                   <Task 
+                   data={task}
+                   onToggle = {this.toggleTask} 
+                   disabled = {!!selectedTask.size}
+                   onDelete = {this.deleteTask}
+                   />
                 </Col>
             )
         })
@@ -108,6 +96,7 @@ class ToDo extends Component {
                                     value={inputValue}
                                     onChange={this.handeleChange}
                                     onKeyDown={this.handleKeyDown}
+                                    disabled={!!selectedTask.size}
                                 />
                                 <InputGroup.Append>
                                     <Button

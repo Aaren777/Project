@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ToDo from "./components/ToDo.js";
+import ToDo from "./components/ToDo/ToDo.js";
 
 
 function App() {
