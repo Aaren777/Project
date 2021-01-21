@@ -10,13 +10,15 @@ class ToDo extends Component {
     state = {
         tasks: [],
         selectedTask: new Set(),
-        showConfirm: false
+        showConfirm: false,
+        openNewTaskModal: false
     };
 
     addTask = (newTask) => {
         const tasks = [...this.state.tasks, newTask];
         this.setState({
-            tasks: tasks,
+            tasks,
+            openNewTaskModal: false
         });
     };
     deleteTask = (taskId) => {
@@ -52,10 +54,26 @@ class ToDo extends Component {
     toggleConfirm = () => {
         this.setState({
             showConfirm: !this.state.showConfirm
+        });
+    };
+    selectAll = () => {
+        const taskIds = this.state.tasks.map((task) => task._id)
+        this.setState({
+            selectedTask: new Set(taskIds)
+        });
+    };
+    deselectAll = () => {
+        this.setState({
+            selectedTask: new Set()
+        });
+    };
+    toggleNewTaskModal = () => {
+        this.setState({
+        openNewTaskModal: !this.state.openNewTaskModal
         })
     }
     render() {
-        const { tasks, selectedTask, showConfirm } = this.state;
+        const { tasks, selectedTask, showConfirm, openNewTaskModal} = this.state;
         const taskComponents = tasks.map((task) => {
             return (
                 <Col key={task._id}
@@ -64,30 +82,49 @@ class ToDo extends Component {
                     md={4}
                     lg={3}
                     xl={2}>
-                   <Task 
-                   data={task}
-                   onToggle = {this.toggleTask} 
-                   disabled = {!!selectedTask.size}
-                   onDelete = {this.deleteTask}
-                   />
+                    <Task
+                        data={task}
+                        onToggle={this.toggleTask}
+                        disabled={!!selectedTask.size}
+                        onDelete={this.deleteTask}
+                        selected={selectedTask.has(task._id)}
+                    />
                 </Col>
             )
         })
         return (
-                <Container>
-                    <Row className="justify-content-center">
-                        <Col xs={10}>
-                            <h2 className="text-center">Todo List</h2>
-                            <NewTask
-                            disabled={!!selectedTask.size}
-                            onAdd = {this.addTask}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        {taskComponents}
-                    </Row>
-                    <Row className="justify-content-center">
+            <Container>
+                <Row className="justify-content-center">
+                    <Col xs={10}>
+                        <h2 className="text-center">Todo List</h2>
+                    </Col>
+                </Row>
+                <Row className="justify-content-center">
+                    <Col className="text-center">
+                        <Button
+                            variant="primary"
+                            onClick={this.toggleNewTaskModal}
+                        >
+                            Add New Task
+                        </Button>
+                    </Col>
+                    <Col className="text-center">
+                        <Button
+                            variant="warning"
+                            onClick={this.selectAll}
+                        >
+                            Select All
+                        </Button>
+                    </Col>
+                    <Col className="text-center">
+                        <Button
+                            variant="warning"
+                            onClick={this.deselectAll}
+                        >
+                            Deselect All
+                        </Button>
+                    </Col>
+                    <Col className="text-center">
                         <Button
                             variant="danger"
                             onClick={this.toggleConfirm}
@@ -95,14 +132,25 @@ class ToDo extends Component {
                         >
                             Delete Selected
                         </Button>
-                    </Row>
-                    {showConfirm && 
-                        <Confirm
-                        onClose = {this.toggleConfirm}
-                        onConfirm = {this.removeSelected}
-                        count = {selectedTask.size}
-                        /> }
-                </Container>
+                    </Col>
+                </Row>
+                <Row>
+                    {taskComponents}
+                </Row>
+                { showConfirm &&
+                    <Confirm
+                        onClose={this.toggleConfirm}
+                        onConfirm={this.removeSelected}
+                        count={selectedTask.size}
+                    />
+                }
+                {openNewTaskModal &&
+                    <NewTask
+                    onClose={this.toggleNewTaskModal}
+                    onAdd={this.addTask}
+                />
+                }
+            </Container>
         )
     }
 }
