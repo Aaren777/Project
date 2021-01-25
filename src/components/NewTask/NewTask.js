@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Button, InputGroup, FormControl } from 'react-bootstrap';
+import { Button, Modal, FormControl } from 'react-bootstrap';
 // import Styles from './NewTaskask.module.css';
 import idGenerator from '../../helpers/idGenerator';
 import PropTypes from 'prop-types';
+
 
 class NewTask extends Component {
     state = {
@@ -11,13 +12,14 @@ class NewTask extends Component {
 
     };
     handeleChange = (event) => {
+        const {name , value } = event.target
         this.setState({
-            title: event.target.value
+            [name]: value
         });
     };
     handleKeyDown = (event) => {
         if (event.key === "Enter") {
-            this.addTask()
+            this.handleSumbit()
         }
     }
     handleSumbit = () => {
@@ -32,39 +34,59 @@ class NewTask extends Component {
             description
         };
         this.props.onAdd(newTask)
-        this.setState ({
-            title: '',
-            description: ''
-        })
     }
 
     render() {
-        const { title, description } = this.state
-        const { disabled } = this.props
+        const { onClose } = this.props
         return (
-            <InputGroup className="mb-3">
-                <FormControl
-                    placeholder="Title"
-                    value={title}
-                    onChange={this.handeleChange}
-                    onKeyDown={this.handleKeyDown}
-                    disabled={disabled}
-                />
-                <InputGroup.Append>
-                    <Button
-                        variant="primary"
-                        onClick={this.handleSumbit}
-                        disabled={disabled}
-                    >
-                        Add
-                </Button>
-                </InputGroup.Append>
-            </InputGroup>
+            <>
+                <Modal
+                    show={true}
+                    onHide={onClose}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Add New Task
+                    </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <FormControl
+                            placeholder="Title"
+                            onChange={this.handeleChange}
+                            onKeyPress={this.handleKeyDown}
+                            className='mb-3'
+                            name="title"
+                        />
+                        <FormControl
+                            as="textarea"
+                            rows={5}
+                            placeholder="Description"
+                            name="description"
+                            onChange={this.handeleChange}
+                        />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button
+                            onClick={this.handleSumbit}
+                            variant='success'
+                        >
+                            Add</Button>
+                        <Button
+                            onClick={onClose}
+                            variant='danger'
+                        >
+                            Cancel</Button>
+                    </Modal.Footer>
+                </Modal>
+            </>
         )
     }
 };
 NewTask.propTypes = {
-    disabled: PropTypes.bool.isRequired,
-    onAdd: PropTypes.func.isRequired
+    onAdd: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired
 }
 export default NewTask
