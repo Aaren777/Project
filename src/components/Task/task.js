@@ -12,7 +12,7 @@ class Task extends Component {
     render() {
 
         const task = this.props.data;
-        const { disabled, onDelete, selected } = this.props
+        const { disabled, onDelete, selected, onEdit } = this.props
         return (
             <Card className={`${Styles.task} ${selected ? Styles.selected : ""}`} >
                 <Card.Body>
@@ -29,7 +29,7 @@ class Task extends Component {
                         className="m-2"
                         variant="warning"
                         disabled={disabled}
-                        onClick={() => onDelete(task._id)}
+                        onClick={() => onEdit(task)}
                     >
                         <FontAwesomeIcon icon={faEdit} />
                     </Button>
