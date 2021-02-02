@@ -39,7 +39,6 @@ class NewTask extends Component {
     render() {
         const { onClose } = this.props
         return (
-            <>
                 <Modal
                     show={true}
                     onHide={onClose}
@@ -81,7 +80,6 @@ class NewTask extends Component {
                             Cancel</Button>
                     </Modal.Footer>
                 </Modal>
-            </>
         )
     }
 };

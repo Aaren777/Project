@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import Task from '../Task/task';
 import NewTask from '../NewTask/NewTask';
-import Confirm from '../Confirm'
+import Confirm from '../Confirm';
+import EditTaskModal from '../EditTaskModal'
 
 
 class ToDo extends Component {
@@ -11,7 +12,8 @@ class ToDo extends Component {
         tasks: [],
         selectedTask: new Set(),
         showConfirm: false,
-        openNewTaskModal: false
+        openNewTaskModal: false,
+        editTask: null
     };
 
     addTask = (newTask) => {
@@ -70,10 +72,22 @@ class ToDo extends Component {
     toggleNewTaskModal = () => {
         this.setState({
         openNewTaskModal: !this.state.openNewTaskModal
-        })
-    }
+        });
+    };
+    handleEdit = (editTask) => {
+        this.setState({editTask})
+    };
+    handleSaveTask = (editedTask) => {
+        const tasks = [...this.state.tasks];
+        const foundIndex = tasks.findIndex((task) => task._id === editedTask._id);
+        tasks[foundIndex] = editedTask;
+        this.setState({
+            tasks,
+            editTask: null
+        });
+    };
     render() {
-        const { tasks, selectedTask, showConfirm, openNewTaskModal} = this.state;
+        const { tasks, selectedTask, showConfirm, openNewTaskModal, editTask} = this.state;
         const taskComponents = tasks.map((task) => {
             return (
                 <Col key={task._id}
@@ -88,6 +102,7 @@ class ToDo extends Component {
                         disabled={!!selectedTask.size}
                         onDelete={this.deleteTask}
                         selected={selectedTask.has(task._id)}
+                        onEdit={this.handleEdit}
                     />
                 </Col>
             )
@@ -150,6 +165,12 @@ class ToDo extends Component {
                     onAdd={this.addTask}
                 />
                 }
+                {editTask && 
+                    <EditTaskModal
+                        data={editTask}
+                        onClose={() => this.handleEdit(null)}
+                        onSave={this.handleSaveTask}
+                    />}
             </Container>
         )
     }
