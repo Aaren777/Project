@@ -4,6 +4,8 @@ import Styles from './task.module.css';
 import PropTypes from 'prop-types';
 import {FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faTrash, faEdit} from '@fortawesome/free-solid-svg-icons';
+import {formDate} from '../../helpers/utils'
+
 class Task extends PureComponent {
     handleChange = () => {
         const { onToggle, data } = this.props
@@ -24,6 +26,9 @@ class Task extends PureComponent {
                     <Card.Title>{task.title}</Card.Title>
                     <Card.Text>
                        {task.description}
+                    </Card.Text>
+                    <Card.Text>
+                       {formDate(task.date)}
                     </Card.Text>
                     <Button
                         className="m-2"
