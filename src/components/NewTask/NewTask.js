@@ -2,13 +2,16 @@ import React, { Component } from "react";
 import { Button, Modal, FormControl } from 'react-bootstrap';
 // import Styles from './NewTaskask.module.css';
 import PropTypes from 'prop-types';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import {formDate} from '../../helpers/utils'
 
 
 class NewTask extends Component {
     state = {
         title: '',
-        description: ''
-
+        description: '',
+        date: new Date()
     };
     handeleChange = (event) => {
         const {name , value } = event.target
@@ -16,6 +19,11 @@ class NewTask extends Component {
             [name]: value
         });
     };
+    handeleChangeDate = (value) =>{
+        this.setState({
+            date: value || new Date()
+        })
+    }
     handleKeyDown = (event) => {
         if (event.key === "Enter") {
             this.handleSumbit()
@@ -29,7 +37,8 @@ class NewTask extends Component {
         };
         const newTask = {
             title,
-            description
+            description,
+            date: formDate(this.state.date.toISOString())
         };
         this.props.onAdd(newTask)
     }
@@ -63,6 +72,11 @@ class NewTask extends Component {
                             placeholder="Description"
                             name="description"
                             onChange={this.handeleChange}
+                        />
+                        <DatePicker
+                            minDate= {new Date()}
+                            selected={this.state.date}
+                            onChange={this.handeleChangeDate}
                         />
                     </Modal.Body>
                     <Modal.Footer>

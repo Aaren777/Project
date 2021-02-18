@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { Button, Modal, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import {formDate} from '../helpers/utils'
 
 
 class EditTaskModal extends Component {
     constructor(props) {
         super(props);
+        const date = props.date
         this.state = {
-            ...props.data
+            ...props.data,
+            date: date ? new Date(props.data.date) : new Date()
         }
     };
     handeleChange = (event) => {
@@ -16,6 +21,11 @@ class EditTaskModal extends Component {
             [name]: value
         });
     };
+    handeleChangeDate = (value) =>{
+        this.setState({
+            date: value || new Date()
+        })
+    }
     handleKeyDown = (event) => {
         if (event.key === "Enter") {
             this.handleSumbit()
@@ -31,6 +41,7 @@ class EditTaskModal extends Component {
             _id: this.state._id,
             title,
             description,
+            date: formDate(this.state.date.toISOString())
         })
     }
 
@@ -64,9 +75,15 @@ class EditTaskModal extends Component {
                         rows={5}
                         placeholder="Description"
                         name="description"
+                        className='mb-3'
                         onChange={this.handeleChange}
                         value={description}
                     />
+                    <DatePicker
+                            minDate= {new Date()}
+                            selected={this.state.date}
+                            onChange={this.handeleChangeDate}
+                        />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button
