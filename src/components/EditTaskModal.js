@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import { Button, Modal, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import DatePicker from "react-datepicker";
@@ -14,6 +14,10 @@ class EditTaskModal extends Component {
             ...props.data,
             date: date ? new Date(date) : new Date()
         }
+        this.inputRef = createRef()
+    }
+    componentDidMount(){
+        this.inputRef.current.focus()
     }
     handeleChange = (event) => {
         const { name, value } = event.target
@@ -69,6 +73,7 @@ class EditTaskModal extends Component {
                         className='mb-3'
                         name="title"
                         value={title}
+                        ref = {this.inputRef}
                     />
                     <FormControl
                         as="textarea"
