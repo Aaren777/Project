@@ -9,12 +9,12 @@ import {formDate} from '../helpers/utils'
 class EditTaskModal extends Component {
     constructor(props) {
         super(props);
-        const date = props.date
+        const {date} = props.data
         this.state = {
             ...props.data,
-            date: date ? new Date(props.data.date) : new Date()
+            date: date ? new Date(date) : new Date()
         }
-    };
+    }
     handeleChange = (event) => {
         const { name, value } = event.target
         this.setState({
