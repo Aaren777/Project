@@ -3,7 +3,9 @@ import { Button, Modal, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {formDate} from '../helpers/utils'
+import {formDate} from '../helpers/utils';
+import { connect } from 'react-redux';
+import { editTask} from '../store/action'
 
 
 class EditTaskModal extends Component {
@@ -41,12 +43,13 @@ class EditTaskModal extends Component {
         if (!title) {
             return;
         };
-        this.props.onSave({
+        const editedTask = {
             _id: this.state._id,
             title,
             description,
             date: formDate(this.state.date.toISOString())
-        })
+        }
+        this.props.editTask(editedTask, this.props.from)
     }
 
     render() {
@@ -108,8 +111,9 @@ class EditTaskModal extends Component {
 };
 EditTaskModal.propTypes = {
     data: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired
 }
-
-export default EditTaskModal
+const mapDispatchToProps = {
+    editTask
+}
+export default connect(null, mapDispatchToProps)(EditTaskModal)

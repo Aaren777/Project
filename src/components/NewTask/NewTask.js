@@ -4,8 +4,9 @@ import { Button, Modal, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {formDate} from '../../helpers/utils'
-
+import {formDate} from '../../helpers/utils';
+import { connect } from 'react-redux';
+import { addTask} from '../../store/action'
 
 class NewTask extends Component {
     constructor(props){
@@ -47,7 +48,7 @@ class NewTask extends Component {
             description,
             date: formDate(this.state.date.toISOString())
         };
-        this.props.onAdd(newTask)
+        this.props.addTask(newTask)
     }
 
     render() {
@@ -104,7 +105,9 @@ class NewTask extends Component {
     }
 };
 NewTask.propTypes = {
-    onAdd: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired
 }
-export default NewTask
+const mapDispatchToProps = {
+    addTask
+}
+export default connect(null, mapDispatchToProps)(NewTask)
