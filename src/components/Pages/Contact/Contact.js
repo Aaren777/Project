@@ -79,9 +79,9 @@ export default function Contact() {
         }
         if (!valuesExist && !errorsExist) {
             setErrors({
-                name: 'Field is required',
-                email: 'Field is required',
-                message: 'Field is required'
+                name: values.name ? "" : 'Field is required',
+                email: values.email ? "" : 'Field is required',
+                message: values.message ? "" :'Field is required'
             })
         }
     }
@@ -107,7 +107,7 @@ export default function Contact() {
                         </Form.Group>
                         <Form.Group>
                             <Form.Control
-                                className={errors.name ? Styles.invalid : ''}
+                                className={errors.email ? Styles.invalid : ''}
                                 type="email"
                                 placeholder="Enter email"
                                 onChange={handleChange}
@@ -120,7 +120,7 @@ export default function Contact() {
                         </Form.Group>
                         <Form.Group>
                             <Form.Control
-                                className={errors.name ? Styles.invalid : ''}
+                                className={errors.message ? Styles.invalid : ''}
                                 as="textarea"
                                 placeholder="Enter your message"
                                 rows={5}
