@@ -17,10 +17,10 @@ class NewTask extends Component {
             date: new Date(),
         };
         this.inputref = createRef()
-    }
+    };
     componentDidMount(){
         this.inputref.current.focus()
-    }
+    };
     handeleChange = (event) => {
         const {name , value } = event.target
         this.setState({
@@ -30,14 +30,14 @@ class NewTask extends Component {
     handeleChangeDate = (value) =>{
         this.setState({
             date: value || new Date()
-        })
-    }
+        });
+    };
     handleKeyDown = (event) => {
         if (event.key === "Enter") {
-            this.handleSumbit()
-        }
-    }
-    handleSumbit = () => {
+            this.handleSubmit()
+        };
+    };
+    handleSubmit = () => {
         const title = this.state.title.trim();
         const description = this.state.description.trim();
         if (!title) {
@@ -49,7 +49,7 @@ class NewTask extends Component {
             date: formDate(this.state.date.toISOString())
         };
         this.props.addTask(newTask)
-    }
+    };
 
     render() {
         const { onClose } = this.props
@@ -90,7 +90,7 @@ class NewTask extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button
-                            onClick={this.handleSumbit}
+                            onClick={this.handleSubmit}
                             variant='success'
                         >
                             Add</Button>

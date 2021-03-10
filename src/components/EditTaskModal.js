@@ -30,14 +30,14 @@ class EditTaskModal extends Component {
     handeleChangeDate = (value) =>{
         this.setState({
             date: value || new Date()
-        })
-    }
+        });
+    };
     handleKeyDown = (event) => {
         if (event.key === "Enter") {
-            this.handleSumbit()
-        }
-    }
-    handleSumbit = () => {
+            this.handleSubmit()
+        };
+    };
+    handleSubmit = () => {
         const title = this.state.title.trim();
         const description = this.state.description.trim();
         if (!title) {
@@ -48,9 +48,9 @@ class EditTaskModal extends Component {
             title,
             description,
             date: formDate(this.state.date.toISOString())
-        }
+        };
         this.props.editTask(editedTask, this.props.from)
-    }
+    };
 
     render() {
         const { onClose } = this.props
@@ -95,7 +95,7 @@ class EditTaskModal extends Component {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button
-                        onClick={this.handleSumbit}
+                        onClick={this.handleSubmit}
                         variant='success'
                     >
                         Save</Button>

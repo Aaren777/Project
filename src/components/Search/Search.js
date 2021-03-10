@@ -87,6 +87,11 @@ function Search({getTasks}) {
             [name]: value
         })
     };
+    // const handleKeyDown = (event) => {
+    //     if (event.key === "Enter") {
+    //        this.handleSubmit()
+    //     }
+    // };
     const handleSubmit = () => {
         const params = {}
 
@@ -113,6 +118,7 @@ function Search({getTasks}) {
                 <FormControl
                     placeholder="Search..."
                     onChange={(event) => setSearch(event.target.value)}
+                    // onKeyPress={handleKeyDown}
                 />
                 <DropdownButton
                     as={InputGroup.Append}
