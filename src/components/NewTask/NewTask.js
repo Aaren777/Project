@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import { Button, Modal, FormControl } from 'react-bootstrap';
 // import Styles from './NewTaskask.module.css';
 import PropTypes from 'prop-types';
@@ -8,11 +8,18 @@ import {formDate} from '../../helpers/utils'
 
 
 class NewTask extends Component {
-    state = {
-        title: '',
-        description: '',
-        date: new Date()
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            title: '',
+            description: '',
+            date: new Date(),
+        };
+        this.inputref = createRef()
+    }
+    componentDidMount(){
+        this.inputref.current.focus()
+    }
     handeleChange = (event) => {
         const {name , value } = event.target
         this.setState({
@@ -65,6 +72,7 @@ class NewTask extends Component {
                             onKeyPress={this.handleKeyDown}
                             className='mb-3'
                             name="title"
+                            ref = {this.inputref}
                         />
                         <FormControl
                             as="textarea"
