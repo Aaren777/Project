@@ -3,7 +3,9 @@ import { Button, Modal, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {formDate} from '../helpers/utils'
+import {formDate} from '../helpers/utils';
+import { connect } from 'react-redux';
+import { editTask} from '../store/actions'
 
 
 class EditTaskModal extends Component {
@@ -18,7 +20,7 @@ class EditTaskModal extends Component {
     }
     componentDidMount(){
         this.inputRef.current.focus()
-    }
+    };
     handeleChange = (event) => {
         const { name, value } = event.target
         this.setState({
@@ -28,26 +30,27 @@ class EditTaskModal extends Component {
     handeleChangeDate = (value) =>{
         this.setState({
             date: value || new Date()
-        })
-    }
+        });
+    };
     handleKeyDown = (event) => {
         if (event.key === "Enter") {
-            this.handleSumbit()
-        }
-    }
-    handleSumbit = () => {
+            this.handleSubmit()
+        };
+    };
+    handleSubmit = () => {
         const title = this.state.title.trim();
         const description = this.state.description.trim();
         if (!title) {
             return;
         };
-        this.props.onSave({
+        const editedTask = {
             _id: this.state._id,
             title,
             description,
             date: formDate(this.state.date.toISOString())
-        })
-    }
+        };
+        this.props.editTask(editedTask, this.props.from)
+    };
 
     render() {
         const { onClose } = this.props
@@ -92,7 +95,7 @@ class EditTaskModal extends Component {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button
-                        onClick={this.handleSumbit}
+                        onClick={this.handleSubmit}
                         variant='success'
                     >
                         Save</Button>
@@ -108,8 +111,9 @@ class EditTaskModal extends Component {
 };
 EditTaskModal.propTypes = {
     data: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired
-}
-
-export default EditTaskModal
+    onClose: PropTypes.func.isRequired
+};
+const mapDispatchToProps = {
+    editTask
+};
+export default connect(null, mapDispatchToProps)(EditTaskModal)

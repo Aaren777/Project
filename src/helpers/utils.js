@@ -6,4 +6,5 @@ export function textTruncate(str="", maxLength){
     return str;
 }
 return (str.slice(0, maxLength) + "...")
+
 }

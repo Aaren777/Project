@@ -2,145 +2,95 @@ import React, { Component } from 'react'
 import { Card, Button, Container, Row, Col } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
-import { formDate } from '../../../helpers/utils'
-import EditTaskModal from '../../EditTaskModal'
+import { formDate } from '../../../helpers/utils';
+import EditTaskModal from '../../EditTaskModal';
+import { connect } from 'react-redux';
+import { getTask, deleteTask } from '../../../store/actions';
 
-export default class SingleTask extends Component {
+class SingleTask extends Component {
     state = {
-        task: null,
         openEditModal: false
     };
     componentDidMount() {
         const taskId = this.props.match.params.taskId;
-        fetch(`http://localhost:3001/task/${taskId}`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": 'application/json'
-            }
-        })
-            .then(async (response) => {
-                const res = await response.json();
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error;
-                    }
-                    else {
-                        throw new Error('Error')
-                    }
-                }
-                this.setState({
-                    task: res
-                });
-            })
-            .catch((error) => {
-                console.log('error', error)
-            });
+        this.props.getTask(taskId, 'single')
     };
-    deleteTask = () =>{
-        const taskId = this.state.task._id;
-        fetch(`http://localhost:3001/task/${taskId}`, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": 'application/json'
-            }
-        })
-            .then(async(response) => {
-            const res = await response.json();
-            if (response.status >= 400 && response.status < 600) {
-                if (res.error) {
-                    throw res.error;
-                }
-                else {
-                    throw new Error('Error')
-                }
-            }
-            
-            this.props.history.push('/')
-        })
-        .catch((error) => {
-            console.log('error',error)
-        });
-    }
-    toggleEditModal =() => {
-        this.setState({
-        openEditModal: !this.state.openEditModal
-        })
-    }
-    handleSaveTask = (editedTask) => {
-        fetch(`http://localhost:3001/task/${editedTask._id}`, {
-            method: 'PUT',
-            body: JSON.stringify(editedTask),
-            headers: {
-                "Content-Type": 'application/json'
-            }
-        })
-            .then(async(response) => {
-            const res = await response.json();
-            if (response.status >= 400 && response.status < 600) {
-                if (res.error) {
-                    throw res.error;
-                }
-                else {
-                    throw new Error('Error')
-                }
-            }
+    componentDidUpdate(prevProps) {
+        if (!prevProps.editTaskSuccess && this.props.editTaskSuccess) {
             this.setState({
-                task: res,
-                openEditModal: false       
-                });
+                openEditModal: false
+            });
+        }
+    };
+    deleteTask = () => {
+        const taskId = this.props.task._id;
+        this.props.deleteTask(taskId,'single')
+    };
+    toggleEditModal = () => {
+        this.setState({
+            openEditModal: !this.state.openEditModal
         })
-        .catch((error) => {
-            console.log('error',error)
-        });
-    }
+    };
     render() {
-        const { task, openEditModal } = this.state;
+        const { openEditModal } = this.state;
+        const { task } = this.props;
         return (
             <div>
-            <Container className='mt-5'>
-            <Row>
-            <Col xs={12}>
-                {
-                     task ?
-                    <Card className='text-center'>
-                        <Card.Body>
-                            <Card.Title>{task.title}</Card.Title>
-                            <Card.Text>
-                                {task.description}
-                            </Card.Text>
-                            <Card.Text>
-                                {formDate(task.date)}
-                            </Card.Text>
-                            <Button
-                                className="m-2"
-                                variant="warning"
-                            onClick={this.toggleEditModal}
-                            >
-                                <FontAwesomeIcon icon={faEdit} />
-                            </Button>
-                            <Button
-                                variant="danger"
-                            onClick={this.deleteTask}
-                            >
-                                <FontAwesomeIcon icon={faTrash} />
-                            </Button>
-                        </Card.Body>
-                    </Card>
-                    :
-                    <h1>Loading</h1>
-                }
-                </Col>
-                </Row>
+                <Container className='mt-5'>
+                    <Row>
+                        <Col xs={12}>
+                            {
+                                task ?
+                                    <Card className='text-center'>
+                                        <Card.Body>
+                                            <Card.Title>{task.title}</Card.Title>
+                                            <Card.Text>
+                                                {task.description}
+                                            </Card.Text>
+                                            <Card.Text>
+                                                {formDate(task.date)}
+                                            </Card.Text>
+                                            <Button
+                                                className="m-2"
+                                                variant="warning"
+                                                onClick={this.toggleEditModal}
+                                            >
+                                                <FontAwesomeIcon icon={faEdit} />
+                                            </Button>
+                                            <Button
+                                                variant="danger"
+                                                onClick={this.deleteTask}
+                                            >
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </Button>
+                                        </Card.Body>
+                                    </Card>
+                                    :
+                                    <h1>Loading</h1>
+                            }
+                        </Col>
+                    </Row>
                 </Container>
                 {
-                    openEditModal && 
+                    openEditModal &&
                     <EditTaskModal
-                    data={task}
-                    onClose={this.toggleEditModal}
-                    onSave={this.handleSaveTask}
+                        data={task}
+                        onClose={this.toggleEditModal}
+                        from='single'
                     />
                 }
             </div>
         )
     }
-}
+};
+const mapStateToProps = (state) => {
+    return {
+        task: state.task,
+        editTaskSuccess: state.editTaskSuccess
+    };
+};
+const mapDispatchToProps = {
+    getTask,
+    deleteTask
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SingleTask)
