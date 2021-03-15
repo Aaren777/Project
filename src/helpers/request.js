@@ -7,7 +7,7 @@ export default function request(url, method = 'GET', body) {
     };
     if (body) {
         config.body = JSON.stringify(body)
-    }
+    };
    return fetch(url, config)
         .then(async (response) => {
             const res = await response.json();
@@ -20,5 +20,5 @@ export default function request(url, method = 'GET', body) {
                 }
             }
                 return res
-        })
+        });
 }

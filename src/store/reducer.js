@@ -1,4 +1,4 @@
-import * as actionTypes from './actionTypes';
+import * as actionsTypes from './actionsTypes';
 
 const defaultstate = {
   tasks: [],
@@ -14,21 +14,21 @@ const defaultstate = {
 
 export default function reducer(state = defaultstate, action) {
   switch (action.type) {
-    case actionTypes.GET_TASKS: {
+    case actionsTypes.GET_TASKS: {
       return {
         ...state,
         tasks: action.tasks,
         loading: false,
       }
     }
-    case actionTypes.GET_TASK: {
+    case actionsTypes.GET_TASK: {
       return {
         ...state,
         task: action.task,
         loading: false,
       }
     }
-    case actionTypes.PENDING: {
+    case actionsTypes.PENDING: {
       return {
         ...state,
         addTaskSuccess: false,
@@ -39,14 +39,14 @@ export default function reducer(state = defaultstate, action) {
         errorMessage: null
       }
     }
-    case actionTypes.ERROR: {
+    case actionsTypes.ERROR: {
       return {
         ...state,
         loading: false,
         errorMessage: action.error
       }
     }
-    case actionTypes.ADD_TASK: {
+    case actionsTypes.ADD_TASK: {
       return {
         ...state,
         tasks: [...state.tasks, action.task],
@@ -55,7 +55,7 @@ export default function reducer(state = defaultstate, action) {
         successMessage: 'Task created successfully',
       }
     }
-    case actionTypes.DELETE_TASK: {
+    case actionsTypes.DELETE_TASK: {
       if(action.from === 'single'){
         return {
           ...state,
@@ -71,7 +71,7 @@ export default function reducer(state = defaultstate, action) {
         successMessage: 'Task deleted successfully',
       }
     }
-    case actionTypes.DELETE_TASKS: {
+    case actionsTypes.DELETE_TASKS: {
       return {
         ...state,
         tasks: state.tasks.filter((task) => {
@@ -85,7 +85,7 @@ export default function reducer(state = defaultstate, action) {
         successMessage: 'Tasks deleted successfully',
       }
     }
-    case actionTypes.EDIT_TASK: {
+    case actionsTypes.EDIT_TASK: {
       if(action.from === 'single'){
         return {
           ...state,

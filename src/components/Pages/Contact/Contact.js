@@ -34,7 +34,7 @@ export default function Contact() {
                     email: 'Invalid email'
                 });
             }
-        }
+        };
         setValues({
             ...values,
             [name]: value

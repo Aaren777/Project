@@ -5,7 +5,7 @@ import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { formDate } from '../../../helpers/utils';
 import EditTaskModal from '../../EditTaskModal';
 import { connect } from 'react-redux';
-import { getTask, deleteTask } from '../../../store/action';
+import { getTask, deleteTask } from '../../../store/actions';
 
 class SingleTask extends Component {
     state = {
@@ -14,23 +14,23 @@ class SingleTask extends Component {
     componentDidMount() {
         const taskId = this.props.match.params.taskId;
         this.props.getTask(taskId, 'single')
-    }
+    };
     componentDidUpdate(prevProps) {
         if (!prevProps.editTaskSuccess && this.props.editTaskSuccess) {
             this.setState({
                 openEditModal: false
             });
         }
-    }
+    };
     deleteTask = () => {
         const taskId = this.props.task._id;
         this.props.deleteTask(taskId,'single')
-    }
+    };
     toggleEditModal = () => {
         this.setState({
             openEditModal: !this.state.openEditModal
         })
-    }
+    };
     render() {
         const { openEditModal } = this.state;
         const { task } = this.props;
@@ -82,7 +82,7 @@ class SingleTask extends Component {
             </div>
         )
     }
-}
+};
 const mapStateToProps = (state) => {
     return {
         task: state.task,

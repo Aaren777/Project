@@ -7,7 +7,7 @@ import Confirm from '../../Confirm';
 import EditTaskModal from '../../EditTaskModal';
 import Search from '../../Search/Search'
 import { connect } from 'react-redux';
-import { getTasks, deleteTask, deleteTasks } from '../../../store/action';
+import { getTasks, deleteTask, deleteTasks } from '../../../store/actions';
 
 class ToDo extends Component {
     state = {
@@ -18,7 +18,7 @@ class ToDo extends Component {
     };
     componentDidMount() {
         this.props.getTasks()
-    }
+    };
     componentDidUpdate(prevProps) {
         if (!prevProps.addTaskSuccess && this.props.addTaskSuccess) {
             this.setState({
@@ -36,7 +36,7 @@ class ToDo extends Component {
                 editTask: null
             });
         }
-    }
+    };
 
     toggleTask = (taskId) => {
         const selectedTask = new Set(this.state.selectedTask);
@@ -51,7 +51,7 @@ class ToDo extends Component {
     removeSelected = () => {
         const { selectedTask } = this.state;
         this.props.deleteTasks(selectedTask)
-    }
+    };
     toggleConfirm = () => {
         this.setState({
             showConfirm: !this.state.showConfirm
@@ -169,7 +169,7 @@ class ToDo extends Component {
             </Container>
         )
     }
-}
+};
 const mapStateToProps = (state) => {
     return {
         tasks: state.tasks,

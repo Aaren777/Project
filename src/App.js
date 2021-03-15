@@ -74,7 +74,7 @@ function App({ loading, successMessage, errorMessage }) {
       <ToastContainer />
     </div>
   );
-}
+};
 const mapStateToProps = (state) => {
   return {
     loading: state.loading,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { getTasks } from '../../store/action';
+import { getTasks } from '../../store/actions';
 import { InputGroup, FormControl, Button, Dropdown, DropdownButton } from 'react-bootstrap'
 import { textTruncate, formDate } from '../../helpers/utils';
 import DatePicker from "react-datepicker";
@@ -107,7 +107,7 @@ function Search({getTasks}) {
             }
         }
         getTasks(params)
-    }
+    };
 
 
     const [search, setSearch] = useState('');
@@ -180,8 +180,8 @@ function Search({getTasks}) {
             }
         </div>
     )
-}
+};
 const mapDispatchToProps = {
     getTasks
-}
+};
 export default connect(null, mapDispatchToProps)(Search)
