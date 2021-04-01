@@ -7,7 +7,7 @@ import Confirm from '../../Confirm';
 import EditTaskModal from '../../EditTaskModal';
 import Search from '../../Search/Search'
 import { connect } from 'react-redux';
-import { getTasks, deleteTask, deleteTasks } from '../../../store/action';
+import { getTasks, deleteTask, deleteTasks } from '../../../store/actions';
 
 class ToDo extends Component {
     state = {
@@ -58,7 +58,7 @@ class ToDo extends Component {
         });
     };
     selectAll = () => {
-        const taskIds = this.state.tasks.map((task) => task._id)
+        const taskIds = this.props.tasks.map((task) => task._id)
         this.setState({
             selectedTask: new Set(taskIds)
         });
@@ -76,7 +76,7 @@ class ToDo extends Component {
     handleEdit = (editTask) => {
         this.setState({ editTask })
     };
-    render() {
+    render(setState) {
         const { tasks } = this.props;
         const { selectedTask, showConfirm, openNewTaskModal, editTask } = this.state;
         const taskComponents = tasks.map((task) => {
@@ -107,7 +107,7 @@ class ToDo extends Component {
                 </Row>
                 <Row className="justify-content-center">
                     <Col xs={10}>
-                        <Search/>
+                        <Search />
                     </Col>
                 </Row>
                 <Row className="justify-content-center">

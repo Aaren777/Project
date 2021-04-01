@@ -3,9 +3,11 @@ import { Button, Card, } from 'react-bootstrap';
 import Styles from './task.module.css';
 import PropTypes from 'prop-types';
 import {FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faTrash, faEdit} from '@fortawesome/free-solid-svg-icons';
+import {faTrash, faEdit, faCheck, faRedo} from '@fortawesome/free-solid-svg-icons';
 import {formDate, textTruncate} from '../../helpers/utils'
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import {editTask} from '../../store/actions';
+import {connect} from 'react-redux'
 
 class Task extends PureComponent {
     handleChange = () => {
@@ -15,7 +17,7 @@ class Task extends PureComponent {
     render() {
 
         const task = this.props.data;
-        const { disabled, onDelete, selected, onEdit } = this.props
+        const { disabled, onDelete, selected, onEdit, editTask } = this.props
         return (
             <Card className={`${Styles.task} ${selected ? Styles.selected : ""}`} >
                 <Card.Body>
@@ -31,11 +33,44 @@ class Task extends PureComponent {
                        {textTruncate(task.description, 60)}
                     </Card.Text>
                     <Card.Text>
-                       {formDate(task.date)}
+                       Status: {task.status}
                     </Card.Text>
+                    <Card.Text>
+                       Created ad: {formDate(task.created_at)}
+                    </Card.Text>
+                    <Card.Text>
+                       Date: {formDate(task.date)}
+                    </Card.Text>
+                    {
+                        task.status ==='active'
+                         ?
+                    <Button
+                        className="m-2"
+                        variant="success"
+                        disabled={disabled}
+                        onClick={() => editTask({
+                            status:'done',
+                            _id:task._id
+                        })}
+                    >
+                        <FontAwesomeIcon icon={faCheck} />
+                    </Button>
+                    :
                     <Button
                         className="m-2"
                         variant="warning"
+                        disabled={disabled}
+                        onClick={() => editTask({
+                            status:'active',
+                            _id:task._id
+                        })}
+                    >
+                        <FontAwesomeIcon icon={faRedo} />
+                    </Button>
+                    }
+                    <Button
+                        className="m-2"
+                        variant="secondary"
                         disabled={disabled}
                         onClick={() => onEdit(task)}
                     >
@@ -60,4 +95,7 @@ Task.propTypes = {
     onDelete: PropTypes.func.isRequired,
     selected: PropTypes.bool.isRequired,
 };
-export default Task
+const mapDispatchToProps = {
+    editTask
+}
+export default connect(null, mapDispatchToProps)(Task)

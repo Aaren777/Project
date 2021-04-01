@@ -6,3 +6,6 @@ export const ADD_TASK = 'ADD_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 export const DELETE_TASKS = 'DELETE_TASKS';
 export const EDIT_TASK = 'EDIT_TASK';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const CONTACT_SUCCESS = 'CONTACT_SUCCESS';

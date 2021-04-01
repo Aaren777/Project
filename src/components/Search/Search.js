@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { getTasks } from '../../store/action';
+import { getTasks } from '../../store/actions';
 import { InputGroup, FormControl, Button, Dropdown, DropdownButton } from 'react-bootstrap'
-import { textTruncate, formDate } from '../../helpers/utils';
+import { textTruncate } from '../../helpers/utils';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -87,23 +87,23 @@ function Search({getTasks}) {
             [name]: value
         })
     };
-    // const handleKeyDown = (event) => {
-    //     if (event.key === "Enter") {
-    //        this.handleSubmit()
-    //     }
-    // };
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+           return handleSubmit()
+        }
+    };
     const handleSubmit = () => {
-        const params = {}
+        const params = {};
 
         search && (params.search = search);
         status.value && (params.status = status.value);
-        sort.value && (params.sort = sort.value)
+        sort.value && (params.sort = sort.value);
 
         for (let i in dates) {
             const value = dates[i];
             if (value) {
-                const date = formDate(value.toISOString());
-                params[i] = date
+                const date = value.toLocaleDateString();
+                params[i] = date;
             }
         }
         getTasks(params)
@@ -118,7 +118,7 @@ function Search({getTasks}) {
                 <FormControl
                     placeholder="Search..."
                     onChange={(event) => setSearch(event.target.value)}
-                    // onKeyPress={handleKeyDown}
+                    onKeyPress={handleKeyDown}
                 />
                 <DropdownButton
                     as={InputGroup.Append}
@@ -156,6 +156,26 @@ function Search({getTasks}) {
                         ))
                     }
                 </DropdownButton>
+                <DropdownButton
+                    as={InputGroup.Append}
+                    variant="outline-primary"
+                    title= 'Dates'
+                    id="input-group-dropdown-2"
+                >
+                {
+                    dateOptions.map((option, index) => (
+                        <div
+                            key={index}
+                        >
+                            {option.label}
+                            <DatePicker
+                                selected={dates[option.value]}
+                                onChange={(value) => handeleChangeDate(value, option.value)}
+                            />
+                        </div>
+                    ))
+                }
+                </DropdownButton>
                 <InputGroup.Append>
                     <Button
                         variant="outline-primary"
@@ -165,19 +185,7 @@ function Search({getTasks}) {
                     </Button>
                 </InputGroup.Append>
             </InputGroup>
-            {
-                dateOptions.map((option, index) => (
-                    <div
-                        key={index}
-                    >
-                        <span>{option.label}</span>
-                        <DatePicker
-                            selected={dates[option.value]}
-                            onChange={(value) => handeleChangeDate(value, option.value)}
-                        />
-                    </div>
-                ))
-            }
+            
         </div>
     )
 }

@@ -1,29 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import Styles from './contactStyle.module.css';
+import Styles from './loginStyle.module.css';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { contact } from '../../../store/actions';
+import { login } from '../../../store/actions';
 
-function Contact(props) {
-    useEffect(() => {
-        if (props.sendForSuccess) {
-            return setValues({
-                name: '',
-                email: '',
-                message: '',
-            });
-            // props.sendForSuccess = false es vonc ogtagorcem stex?
-        }
-    }, [props.sendForSuccess]);
+function Login(props) {
     const [values, setValues] = useState({
-        name: '',
         email: '',
-        message: ''
+        password: '',
     });
     const [errors, setErrors] = useState({
-        name: null,
         email: null,
-        message: null
+        password: null,
     });
     const handleChange = ({ target: { name, value } }) => {
         if (!value) {
@@ -53,40 +42,25 @@ function Contact(props) {
         });
     };
     const handleSubmit = () => {
-       
-        const { name, email, message, } = values;
+        const { email, password } = values
+
         setErrors({
-            name: values.name ? "" : 'Field is required',
-            email: values.email ? "" : 'Field is required',
-            message: values.message ? "" : 'Field is required'
+            email: email ? "" : 'Field is required',
+            password: password ? "" : 'Field is required',
         })
-        if (name && email && message) {
-            props.contact(values)
+        if (email && password) {
+            props.login(values)
         }
     }
-
     return (
         <Container>
             <Row className='justify-content-center'>
                 <Col xs={5}>
                     <Form className='mt-5'>
-                        <h1 className='text-center'>Contact Us</h1>
+                        <h1 className='text-center'>Login</h1>
                         <Form.Group>
                             <Form.Control
-                                className={errors.name ? Styles.invalid : ''}
-                                type="text"
-                                placeholder="Enter your name"
-                                onChange={handleChange}
-                                name="name"
-                                value={values.name}
-                            />
-                            <Form.Text className="text-danger">
-                                {errors.name}
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Control
-                                className={errors.name ? Styles.invalid : ''}
+                                className={errors.email ? Styles.invalid : ''}
                                 type="email"
                                 placeholder="Enter email"
                                 onChange={handleChange}
@@ -99,16 +73,15 @@ function Contact(props) {
                         </Form.Group>
                         <Form.Group>
                             <Form.Control
-                                className={errors.name ? Styles.invalid : ''}
-                                as="textarea"
-                                placeholder="Enter your message"
-                                rows={5}
+                                className={errors.password ? Styles.invalid : ''}
+                                type="password"
+                                placeholder="Enter your password"
                                 onChange={handleChange}
-                                name="message"
-                                value={values.message}
+                                name="password"
+                                value={values.password}
                             />
                             <Form.Text className="text-danger">
-                                {errors.message}
+                                {errors.password}
                             </Form.Text>
                         </Form.Group>
                         <div className='text-center'>
@@ -116,23 +89,19 @@ function Contact(props) {
                                 variant="primary"
                                 className={Styles.buttonSubmit}
                                 onClick={handleSubmit}>
-                                Send
+                                Login
                          </Button>
                         </div>
+                        <Link to='/register'>Don't have account yet? Register now!</Link>
                     </Form>
                 </Col>
             </Row>
         </Container>
     )
 }
-const mapStateToProps = (state) => {
-    return {
-        sendForSuccess: state.sendForSuccess
-    };
-};
 const mapDispatchToProps = {
-    contact
+    login
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Contact)
+export default connect(null, mapDispatchToProps)(Login)

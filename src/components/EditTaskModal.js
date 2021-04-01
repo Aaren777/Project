@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {formDate} from '../helpers/utils';
 import { connect } from 'react-redux';
-import { editTask} from '../store/action'
+import { editTask} from '../store/actions'
 
 
 class EditTaskModal extends Component {
