@@ -5,6 +5,8 @@ import { InputGroup, FormControl, Button, Dropdown, DropdownButton } from 'react
 import { textTruncate } from '../../helpers/utils';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const statusOptions = [
     {
@@ -68,7 +70,7 @@ const dateOptions = [
         value: 'complete_gte'
     }
 ];
-function Search({getTasks}) {
+function Search({ getTasks }) {
     const [status, setStatus] = useState({
         value: ''
     });
@@ -89,7 +91,7 @@ function Search({getTasks}) {
     };
     const handleKeyDown = (event) => {
         if (event.key === "Enter") {
-           return handleSubmit()
+            return handleSubmit()
         }
     };
     const handleSubmit = () => {
@@ -159,33 +161,33 @@ function Search({getTasks}) {
                 <DropdownButton
                     as={InputGroup.Append}
                     variant="outline-primary"
-                    title= 'Dates'
+                    title='Dates'
                     id="input-group-dropdown-2"
                 >
-                {
-                    dateOptions.map((option, index) => (
-                        <div
-                            key={index}
-                        >
-                            {option.label}
-                            <DatePicker
-                                selected={dates[option.value]}
-                                onChange={(value) => handeleChangeDate(value, option.value)}
-                            />
-                        </div>
-                    ))
-                }
+                    {
+                        dateOptions.map((option, index) => (
+                            <div
+                                key={index}
+                            >
+                                {option.label}
+                                <DatePicker
+                                    selected={dates[option.value]}
+                                    onChange={(value) => handeleChangeDate(value, option.value)}
+                                />
+                            </div>
+                        ))
+                    }
                 </DropdownButton>
                 <InputGroup.Append>
                     <Button
                         variant="outline-primary"
                         onClick={handleSubmit}
                     >
-                        Search
+                        <FontAwesomeIcon icon={faSearch} />
                     </Button>
                 </InputGroup.Append>
             </InputGroup>
-            
+
         </div>
     )
 }

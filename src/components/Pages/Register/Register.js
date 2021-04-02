@@ -146,7 +146,8 @@ function Register(props) {
                             <Button
                                 variant="primary"
                                 className={Styles.buttonSubmit}
-                                onClick={handleSubmit}>
+                                onClick={handleSubmit}
+                                >
                                 Register
                          </Button>
                         </div>

@@ -41,6 +41,11 @@ function Login(props) {
             [name]: value
         });
     };
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+           return handleSubmit()
+        }
+    };
     const handleSubmit = () => {
         const { email, password } = values
 
@@ -88,7 +93,9 @@ function Login(props) {
                             <Button
                                 variant="primary"
                                 className={Styles.buttonSubmit}
-                                onClick={handleSubmit}>
+                                onClick={handleSubmit}
+                                onKeyPress={handleKeyDown}
+                                >
                                 Login
                          </Button>
                         </div>
