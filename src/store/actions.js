@@ -6,7 +6,7 @@ import { saveToken, requestWithoutToken } from '../helpers/auth';
 const apiHost = process.env.REACT_APP_API_HOST
 
 export function getTasks(params = {}) {
-    const query = Object.entries(params).map(([key, value]) => `${key}=${value}`).join()
+    const query = Object.entries(params).map(([key, value]) => `${key}=${value}`).join('&')
     return (dispatch) => {
         dispatch({ type: actionTypes.PENDING })
         request(`${apiHost}/task?${query}`)

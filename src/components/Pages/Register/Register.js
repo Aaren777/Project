@@ -42,6 +42,15 @@ function Register(props) {
                 });
             }
         }
+        if (name === 'password' && value) {
+            const passwordReg = /(?=.{6,})/;
+            if (!passwordReg.test(value)) {
+                setErrors({
+                    ...errors,
+                    password: 'password must be at least 6 characters long'
+                });
+            }
+        }
         setValues({
             ...values,
             [name]: value

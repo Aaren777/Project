@@ -12,7 +12,6 @@ function Contact(props) {
                 email: '',
                 message: '',
             });
-            // props.sendForSuccess = false es vonc ogtagorcem stex?
         }
     }, [props.sendForSuccess]);
     const [values, setValues] = useState({

@@ -37,6 +37,7 @@ export default function reducer(state = defaultstate, action) {
         addTaskSuccess: false,
         deleteTaskSuccess: false,
         editTasksSuccess: false,
+        editTaskSuccess: false,
         loading: true,
         successMessage: null,
         errorMessage: null,
@@ -123,7 +124,6 @@ export default function reducer(state = defaultstate, action) {
       return {
         ...state,
         loading: false,
-        successMessage: 'You have successfully logged in!',
         isAuthenticated: true
       }
     }

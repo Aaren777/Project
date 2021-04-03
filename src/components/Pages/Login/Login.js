@@ -84,6 +84,7 @@ function Login(props) {
                                 onChange={handleChange}
                                 name="password"
                                 value={values.password}
+                                onKeyPress={handleKeyDown}
                             />
                             <Form.Text className="text-danger">
                                 {errors.password}
@@ -94,7 +95,6 @@ function Login(props) {
                                 variant="primary"
                                 className={Styles.buttonSubmit}
                                 onClick={handleSubmit}
-                                onKeyPress={handleKeyDown}
                                 >
                                 Login
                          </Button>
