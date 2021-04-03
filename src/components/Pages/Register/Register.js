@@ -58,16 +58,19 @@ function Register(props) {
     };
     const handleSubmit = () => {
         const { name, surname, email, password, confirmPassword } = values
-        let valid = true
         let passwordMessage = null;
-        if (!confirmPassword) {
-            passwordMessage = 'Field is required'
-            valid = false
+        const errorsArr = Object.values(errors);
+        const errorsExist = !errorsArr.every(el => el === null);
+
+        const valuesArr = Object.values(values);
+        const valuesExist = !valuesArr.some(el => el === '')
+        if (password !== confirmPassword) {
+           return setErrors({
+                ...errors,
+            confirmPassword: `Password didn't match`
+            })
         }
-        else if (password !== confirmPassword) {
-            passwordMessage = `Password didn't match`
-            valid = false
-        }
+        if (!valuesExist && !errorsExist) {
         setErrors({
             name: name ? "" : 'Field is required',
             surname: surname ? "" : 'Field is required',
@@ -75,7 +78,8 @@ function Register(props) {
             password: password ? "" : 'Field is required',
             confirmPassword: confirmPassword ? passwordMessage : passwordMessage,
         })
-        if (valid) {
+    }
+    else if (valuesExist && !errorsExist) {
             props.register(values)
         }
     }

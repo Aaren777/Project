@@ -48,12 +48,19 @@ function Login(props) {
     };
     const handleSubmit = () => {
         const { email, password } = values
+        const errorsArr = Object.values(errors);
+        const errorsExist = !errorsArr.every(el => el === null);
 
+        const valuesArr = Object.values(values);
+        const valuesExist = !valuesArr.some(el => el === '')
+
+        if (!valuesExist && !errorsExist) {
         setErrors({
             email: email ? "" : 'Field is required',
             password: password ? "" : 'Field is required',
         })
-        if (email && password) {
+    }
+       else if (valuesExist && !errorsExist) {
             props.login(values)
         }
     }

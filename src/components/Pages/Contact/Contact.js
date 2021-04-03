@@ -52,14 +52,21 @@ function Contact(props) {
         });
     };
     const handleSubmit = () => {
-       
+        const errorsArr = Object.values(errors);
+        const errorsExist = !errorsArr.every(el => el === null);
+
+        const valuesArr = Object.values(values);
+        const valuesExist = !valuesArr.some(el => el === '')
+
         const { name, email, message, } = values;
-        setErrors({
-            name: values.name ? "" : 'Field is required',
-            email: values.email ? "" : 'Field is required',
-            message: values.message ? "" : 'Field is required'
-        })
-        if (name && email && message) {
+        if (!valuesExist && !errorsExist) {
+            setErrors({
+                name: name ? "" : 'Field is required',
+                email: email ? "" : 'Field is required',
+                message: message ? "" : 'Field is required'
+            })
+        }
+        else if (valuesExist && !errorsExist) {
             props.contact(values)
         }
     }
