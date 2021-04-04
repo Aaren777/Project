@@ -1,12 +1,12 @@
 import React from 'react';
-import { Nav, Navbar, button } from 'react-bootstrap';
+import { Nav, Navbar, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import Styles from './NavMenuStyle.module.css';
 import { connect } from 'react-redux';
 
 function NavMenu({ isAuthenticated }) {
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="dark" variant="dark" align-self= "flex-end">
       <Nav className="ml-3" width="100%">
         {
           isAuthenticated &&
@@ -33,7 +33,7 @@ function NavMenu({ isAuthenticated }) {
             </NavLink>
         {
           isAuthenticated ?
-            <button>Log Out</button>
+            <Button>Log Out</Button>
             :
             <>
               <NavLink className="mr-3"

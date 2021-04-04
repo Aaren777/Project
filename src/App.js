@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import './App.css';
+import Styles from './app.module.css';
+// import { Card } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ToDo from "./components/Pages/ToDo/ToDo.js";
 import About from "./components/Pages/About/About.js";
@@ -35,8 +36,9 @@ function App({ loading, successMessage, errorMessage }) {
     }
   }, [successMessage, errorMessage])
   return (
-    <div className="App">
-      <Router history={history}>
+    <div
+    className={Styles.app}>
+      <Router history={history} >
         <NavMenu />
         <Switch>
           <AuthRoute
@@ -89,6 +91,7 @@ function App({ loading, successMessage, errorMessage }) {
       </Router>
       { loading && <Spinner />}
       <ToastContainer />
+      <footer className="text-muted">2 days ago</footer>
     </div>
   );
 }

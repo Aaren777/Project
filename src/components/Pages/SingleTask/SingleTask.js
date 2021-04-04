@@ -31,13 +31,17 @@ class SingleTask extends Component {
             openEditModal: !this.state.openEditModal
         })
     }
-    // editTask = () => {
-    //     const editedTask = this.props.task._id;
-    //     this.props.editTask(editedTask,'single')
-    // }chi linum es funkcian ogtagorcel
+    editStatus = () => {
+        const editedTask = {
+            _id: this.props.task._id,
+            status:'active' ? 'done' : 'active',
+        }
+        this.props.editTask(editedTask,'single')
+    }
+
     render() {
         const { openEditModal } = this.state;
-        const { task, editTask } = this.props;
+        const { task } = this.props;
         return (
             <div>
                 <Container className='mt-5'>
@@ -63,12 +67,7 @@ class SingleTask extends Component {
                                                     <Button
                                                         className="m-2"
                                                         variant="success"
-                                                        onClick={() => editTask({
-                                                            status: 'done',
-                                                            // data:{task},
-                                                            _id: task._id,
-                                                            from: 'single'
-                                                        })}
+                                                        onClick={this.editStatus}
                                                     >
                                                         <FontAwesomeIcon icon={faCheck} />
                                                     </Button>
@@ -76,12 +75,7 @@ class SingleTask extends Component {
                                                     <Button
                                                         className="m-2"
                                                         variant="warning"
-                                                        onClick={() => editTask({
-                                                            status: 'active',
-                                                            // data:{task},
-                                                            _id: task._id,
-                                                            from: 'single'
-                                                        })}
+                                                        onClick={this.editStatus}
                                                     >
                                                         <FontAwesomeIcon icon={faRedo} />
                                                     </Button>
