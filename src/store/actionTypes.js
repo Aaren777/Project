@@ -9,4 +9,4 @@ export const EDIT_TASK = 'EDIT_TASK';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const CONTACT_SUCCESS = 'CONTACT_SUCCESS';
-export const LOGOUT = 'LOGOUT';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';

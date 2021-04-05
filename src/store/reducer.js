@@ -142,7 +142,7 @@ export default function reducer(state = defaultstate, action) {
         successMessage: 'Your message has been successfully sent!',
       }
     }
-    case actionTypes.LOGOUT: {
+    case actionTypes.LOGOUT_SUCCESS: {
       return {
         ...state,
         loading: false,

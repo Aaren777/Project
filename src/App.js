@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Styles from './app.module.css';
-// import { Card } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Button } from 'react-bootstrap';
 import ToDo from "./components/Pages/ToDo/ToDo.js";
 import About from "./components/Pages/About/About.js";
 import Contact from "./components/Pages/Contact/Contact.js";
@@ -17,6 +17,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { history } from './helpers/history';
 import AuthRoute from './components/AuthRoute';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCodeBranch, faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
 
 const toastProps = {
   position: "bottom-left",
@@ -37,7 +39,7 @@ function App({ loading, successMessage, errorMessage }) {
   }, [successMessage, errorMessage])
   return (
     <div
-    className={Styles.app}>
+      className={Styles.app}>
       <Router history={history} >
         <NavMenu />
         <Switch>
@@ -91,7 +93,10 @@ function App({ loading, successMessage, errorMessage }) {
       </Router>
       { loading && <Spinner />}
       <ToastContainer />
-      <footer className="text-muted">2 days ago</footer>
+      <footer className={Styles.footer}>
+       <div> <a href='https://github.com/Aaren777' target='_blank'><Button><FontAwesomeIcon icon={faCodeBranch}/>Github</Button></a></div>
+        <div><a href='https://www.linkedin.com/in/aren-arzumanyan-05a04920a/' target='_blank'><Button><FontAwesomeIcon icon={faExternalLinkSquareAlt}/>Linkedin</Button></a></div>
+      </footer>
     </div>
   );
 }
