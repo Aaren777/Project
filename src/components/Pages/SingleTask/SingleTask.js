@@ -14,27 +14,23 @@ class SingleTask extends Component {
     componentDidMount() {
         const taskId = this.props.match.params.taskId;
         this.props.getTask(taskId, 'single')
-    }
+    };
     componentDidUpdate(prevProps) {
         if (!prevProps.editTaskSuccess && this.props.editTaskSuccess) {
             this.setState({
                 openEditModal: false
             });
         }
-    }
+    };
     deleteTask = () => {
         const taskId = this.props.task._id;
-        this.props.deleteTask(taskId, 'single')
-    }
+        this.props.deleteTask(taskId,'single')
+    };
     toggleEditModal = () => {
         this.setState({
             openEditModal: !this.state.openEditModal
         })
-    }
-    editStatus = () => {
-        const editedTask = this.props.task._id;
-        this.props.editTask(editedTask,'single')
-    }
+    };
     render() {
         const { openEditModal } = this.state;
         const { task, editTask } = this.props;
@@ -111,7 +107,7 @@ class SingleTask extends Component {
             </div>
         )
     }
-}
+};
 const mapStateToProps = (state) => {
     return {
         task: state.task,

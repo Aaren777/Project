@@ -87,7 +87,7 @@ class Task extends PureComponent {
             </Card>
         )
     }
-}
+};
 Task.propTypes = {
     data: PropTypes.object,
     onToggle: PropTypes.func.isRequired,

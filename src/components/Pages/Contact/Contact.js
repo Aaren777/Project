@@ -45,7 +45,7 @@ function Contact(props) {
                     email: 'Invalid email'
                 });
             }
-        }
+        };
         setValues({
             ...values,
             [name]: value
@@ -85,7 +85,7 @@ function Contact(props) {
                         </Form.Group>
                         <Form.Group>
                             <Form.Control
-                                className={errors.name ? Styles.invalid : ''}
+                                className={errors.email ? Styles.invalid : ''}
                                 type="email"
                                 placeholder="Enter email"
                                 onChange={handleChange}
@@ -98,7 +98,7 @@ function Contact(props) {
                         </Form.Group>
                         <Form.Group>
                             <Form.Control
-                                className={errors.name ? Styles.invalid : ''}
+                                className={errors.message ? Styles.invalid : ''}
                                 as="textarea"
                                 placeholder="Enter your message"
                                 rows={5}
