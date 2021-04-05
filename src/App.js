@@ -94,8 +94,8 @@ function App({ loading, successMessage, errorMessage }) {
       { loading && <Spinner />}
       <ToastContainer />
       <footer className={Styles.footer}>
-       <div> <a href='https://github.com/Aaren777' target='_blank'><Button><FontAwesomeIcon icon={faCodeBranch}/>Github</Button></a></div>
-        <div><a href='https://www.linkedin.com/in/aren-arzumanyan-05a04920a/' target='_blank'><Button><FontAwesomeIcon icon={faExternalLinkSquareAlt}/>Linkedin</Button></a></div>
+       <div> <a href='https://github.com/Aaren777' target='_blank' rel='noreferrer noopener'><Button><FontAwesomeIcon icon={faCodeBranch}/>Github</Button></a></div>
+        <div><a href='https://www.linkedin.com/in/aren-arzumanyan-05a04920a/' target='_blank' rel='noreferrer noopener'><Button><FontAwesomeIcon icon={faExternalLinkSquareAlt}/>Linkedin</Button></a></div>
       </footer>
     </div>
   );
