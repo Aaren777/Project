@@ -45,21 +45,28 @@ function Contact(props) {
                     email: 'Invalid email'
                 });
             }
-        }
+        };
         setValues({
             ...values,
             [name]: value
         });
     };
     const handleSubmit = () => {
-       
+        const errorsArr = Object.values(errors);
+        const errorsExist = !errorsArr.every(el => el === null);
+
+        const valuesArr = Object.values(values);
+        const valuesExist = !valuesArr.some(el => el === '')
+
         const { name, email, message, } = values;
-        setErrors({
-            name: values.name ? "" : 'Field is required',
-            email: values.email ? "" : 'Field is required',
-            message: values.message ? "" : 'Field is required'
-        })
-        if (name && email && message) {
+        if (!valuesExist && !errorsExist) {
+            setErrors({
+                name: name ? "" : 'Field is required',
+                email: email ? "" : 'Field is required',
+                message: message ? "" : 'Field is required'
+            })
+        }
+        else if (valuesExist && !errorsExist) {
             props.contact(values)
         }
     }
@@ -85,7 +92,7 @@ function Contact(props) {
                         </Form.Group>
                         <Form.Group>
                             <Form.Control
-                                className={errors.name ? Styles.invalid : ''}
+                                className={errors.email ? Styles.invalid : ''}
                                 type="email"
                                 placeholder="Enter email"
                                 onChange={handleChange}
@@ -98,7 +105,7 @@ function Contact(props) {
                         </Form.Group>
                         <Form.Group>
                             <Form.Control
-                                className={errors.name ? Styles.invalid : ''}
+                                className={errors.message ? Styles.invalid : ''}
                                 as="textarea"
                                 placeholder="Enter your message"
                                 rows={5}

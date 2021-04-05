@@ -13,7 +13,7 @@ export default async function request(url, method = 'GET', body) {
     if (body) {
         config.body = JSON.stringify(body)
     }
-    return fetch(url, config)
+   return fetch(url, config)
         .then(async (response) => {
             const res = await response.json();
             if (response.status >= 400 && response.status < 600) {
@@ -24,6 +24,6 @@ export default async function request(url, method = 'GET', body) {
                     throw new Error('Error')
                 }
             }
-            return res
-        })
+                return res
+        });
 }

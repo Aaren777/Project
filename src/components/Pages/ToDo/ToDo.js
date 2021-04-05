@@ -18,7 +18,7 @@ class ToDo extends Component {
     };
     componentDidMount() {
         this.props.getTasks()
-    }
+    };
     componentDidUpdate(prevProps) {
         if (!prevProps.addTaskSuccess && this.props.addTaskSuccess) {
             this.setState({
@@ -36,7 +36,7 @@ class ToDo extends Component {
                 editTask: null
             });
         }
-    }
+    };
 
     toggleTask = (taskId) => {
         const selectedTask = new Set(this.state.selectedTask);
@@ -51,7 +51,7 @@ class ToDo extends Component {
     removeSelected = () => {
         const { selectedTask } = this.state;
         this.props.deleteTasks(selectedTask)
-    }
+    };
     toggleConfirm = () => {
         this.setState({
             showConfirm: !this.state.showConfirm
@@ -86,7 +86,7 @@ class ToDo extends Component {
                     sm={6}
                     md={4}
                     lg={3}
-                    xl={2}>
+                    xl={3}>
                     <Task
                         data={task}
                         onToggle={this.toggleTask}
@@ -169,7 +169,7 @@ class ToDo extends Component {
             </Container>
         )
     }
-}
+};
 const mapStateToProps = (state) => {
     return {
         tasks: state.tasks,

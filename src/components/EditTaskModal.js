@@ -20,7 +20,7 @@ class EditTaskModal extends Component {
     }
     componentDidMount(){
         this.inputRef.current.focus()
-    }
+    };
     handeleChange = (event) => {
         const { name, value } = event.target
         this.setState({
@@ -112,8 +112,8 @@ class EditTaskModal extends Component {
 EditTaskModal.propTypes = {
     data: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired
-}
+};
 const mapDispatchToProps = {
     editTask
-}
+};
 export default connect(null, mapDispatchToProps)(EditTaskModal)

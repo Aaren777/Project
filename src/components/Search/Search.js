@@ -109,7 +109,7 @@ function Search({ getTasks }) {
             }
         }
         getTasks(params)
-    }
+    };
 
 
     const [search, setSearch] = useState('');
@@ -190,8 +190,8 @@ function Search({ getTasks }) {
 
         </div>
     )
-}
+};
 const mapDispatchToProps = {
     getTasks
-}
+};
 export default connect(null, mapDispatchToProps)(Search)

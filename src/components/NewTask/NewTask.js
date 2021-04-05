@@ -106,8 +106,8 @@ class NewTask extends Component {
 };
 NewTask.propTypes = {
     onClose: PropTypes.func.isRequired
-}
+};
 const mapDispatchToProps = {
     addTask
-}
+};
 export default connect(null, mapDispatchToProps)(NewTask)

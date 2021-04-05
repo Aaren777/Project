@@ -1,14 +1,20 @@
 import React from 'react';
-import { Nav, Navbar, button } from 'react-bootstrap';
+import { Nav, Navbar, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import Styles from './NavMenuStyle.module.css';
 import { connect } from 'react-redux';
+import { logout } from '../../store/actions';
 
-function NavMenu({ isAuthenticated }) {
+
+function NavMenu({ props,  isAuthenticated }) {
+// const hundleSubmit = () =>{
+//   return logout
+// }
   return (
-    <Navbar bg="dark" variant="dark">
-      <Nav className="ml-3" width="100%">
-        {
+    <Navbar bg="dark" variant="dark" align-self= "flex-end">
+      <Nav className={Styles.nav}>
+      <div> 
+      {
           isAuthenticated &&
           <NavLink className="mr-3"
             to='/'
@@ -31,11 +37,18 @@ function NavMenu({ isAuthenticated }) {
           exact
         >Contact
             </NavLink>
+            </div>
         {
           isAuthenticated ?
-            <button>Log Out</button>
+            <Button
+            onClick= {()=>props.logout(
+              console.log('asdnasdkjb')
+            )}
+            >
+            Log Out
+            </Button>
             :
-            <>
+            <div >
               <NavLink className="mr-3"
                 to='/login'
                 activeClassName={Styles.active}
@@ -48,7 +61,7 @@ function NavMenu({ isAuthenticated }) {
                 exact
               >Register
             </NavLink>
-            </>
+            </div>
         }
       </Nav>
     </Navbar>
@@ -59,4 +72,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.isAuthenticated
   };
 };
-export default connect(mapStateToProps)(NavMenu);
+const mapDispatchToProps = {
+  logout
+};
+export default connect(mapStateToProps, mapDispatchToProps)(NavMenu);
