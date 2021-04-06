@@ -135,7 +135,7 @@ export function contact(data) {
     return (dispatch) => {
         dispatch({ type: actionTypes.PENDING })
         requestWithoutToken(`${apiHost}/form`, 'POST', data)
-            .then((result) => {
+            .then(() => {
                 dispatch({ type: actionTypes.CONTACT_SUCCESS })
             })
             .catch((error) => {
