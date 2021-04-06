@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-keys */
 import * as actionTypes from './actionTypes';
 import {checkLoginStatus} from '../helpers/auth';
 
@@ -17,42 +18,41 @@ const defaultstate = {
 
 export default function reducer(state = defaultstate, action) {
   switch (action.type) {
-    case actionsTypes.GET_TASKS: {
+    case actionTypes.GET_TASKS: {
       return {
         ...state,
         tasks: action.tasks,
         loading: false,
       }
     }
-    case actionsTypes.GET_TASK: {
+    case actionTypes.GET_TASK: {
       return {
         ...state,
         task: action.task,
         loading: false,
       }
     }
-    case actionsTypes.PENDING: {
+    case actionTypes.PENDING: {
       return {
         ...state,
         addTaskSuccess: false,
         deleteTaskSuccess: false,
         editTaskSuccess: false,
         editTasksSuccess: false,
-        editTaskSuccess: false,
         loading: true,
         successMessage: null,
         errorMessage: null,
         sendForSuccess: false,
       }
     }
-    case actionsTypes.ERROR: {
+    case actionTypes.ERROR: {
       return {
         ...state,
         loading: false,
         errorMessage: action.error
       }
     }
-    case actionsTypes.ADD_TASK: {
+    case actionTypes.ADD_TASK: {
       return {
         ...state,
         tasks: [...state.tasks, action.task],
@@ -77,7 +77,7 @@ export default function reducer(state = defaultstate, action) {
         successMessage: 'Task deleted successfully',
       }
     }
-    case actionsTypes.DELETE_TASKS: {
+    case actionTypes.DELETE_TASKS: {
       return {
         ...state,
         tasks: state.tasks.filter((task) => {

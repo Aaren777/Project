@@ -1,5 +1,5 @@
 import request from '../helpers/request';
-import * as actionsTypes from './actionsTypes';
+import * as actionsTypes from './actionTypes';
 import {history} from '../helpers/history'
 
 const apiHost = process.env.REACT_APP_API_URL
