@@ -30,10 +30,18 @@ class SingleTask extends Component {
         this.setState({
             openEditModal: !this.state.openEditModal
         })
-    };
+    }
+    editStatus = () => {
+        const editedTask = {
+            _id: this.props.task._id,
+            status:'active' ? 'done' : 'active',
+        }
+        this.props.editTask(editedTask,'single')
+    }
+
     render() {
         const { openEditModal } = this.state;
-        const { task, editTask } = this.props;
+        const { task } = this.props;
         return (
             <div>
                 <Container className='mt-5'>
@@ -70,7 +78,7 @@ class SingleTask extends Component {
                                                         variant="warning"
                                                         status='active'
                                                         onClick={this.editStatus}
-                                                      >  
+                                                    >
                                                         <FontAwesomeIcon icon={faRedo} />
                                                     </Button>
                                             }

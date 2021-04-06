@@ -1,6 +1,6 @@
 import decode from 'jwt-decode';
 import { store } from '../store/store';
-import { LOGOUT } from '../store/actionTypes';
+import { LOGOUT_SUCCESS } from '../store/actionTypes';
 import { history } from '../helpers/history';
 
 export function checkLoginStatus() {
@@ -62,6 +62,6 @@ export const getToken = () => {
 }
 export function logout() {
     localStorage.removeItem('token')
-    store.dispatch({ type: LOGOUT })
+    store.dispatch({ type: LOGOUT_SUCCESS })
     history('/login')
 }

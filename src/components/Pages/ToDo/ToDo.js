@@ -86,7 +86,7 @@ class ToDo extends Component {
                     sm={6}
                     md={4}
                     lg={3}
-                    xl={2}>
+                    xl={3}>
                     <Task
                         data={task}
                         onToggle={this.toggleTask}

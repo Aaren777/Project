@@ -48,17 +48,19 @@ function Login(props) {
     };
     const handleSubmit = () => {
         const { email, password } = values
+        const errorsArr = Object.values(errors);
+        const errorsExist = !errorsArr.every(el => el === null);
 
+        const valuesArr = Object.values(values);
+        const valuesExist = !valuesArr.some(el => el === '')
+
+        if (!valuesExist && !errorsExist) {
         setErrors({
             email: email ? "" : 'Field is required',
             password: password ? "" : 'Field is required',
         })
-        // if(setErrors){
-        //      setErrors({
-        //         ...errors
-        //     })
-        // }
-        if (email && password) {
+    }
+       else if (valuesExist && !errorsExist) {
             props.login(values)
         }
     }
@@ -89,6 +91,7 @@ function Login(props) {
                                 onChange={handleChange}
                                 name="password"
                                 value={values.password}
+                                onKeyPress={handleKeyDown}
                             />
                             <Form.Text className="text-danger">
                                 {errors.password}
@@ -99,7 +102,6 @@ function Login(props) {
                                 variant="primary"
                                 className={Styles.buttonSubmit}
                                 onClick={handleSubmit}
-                                onKeyPress={handleKeyDown}
                                 >
                                 Login
                          </Button>

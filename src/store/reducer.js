@@ -38,6 +38,7 @@ export default function reducer(state = defaultstate, action) {
         deleteTaskSuccess: false,
         editTaskSuccess: false,
         editTasksSuccess: false,
+        editTaskSuccess: false,
         loading: true,
         successMessage: null,
         errorMessage: null,
@@ -142,7 +143,7 @@ export default function reducer(state = defaultstate, action) {
         successMessage: 'Your message has been successfully sent!',
       }
     }
-    case actionTypes.LOGOUT: {
+    case actionTypes.LOGOUT_SUCCESS: {
       return {
         ...state,
         loading: false,
