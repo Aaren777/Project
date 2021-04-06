@@ -118,19 +118,6 @@ export function login(data) {
             });
     }
 }
-export function logout(data) {
-    return (dispatch) => {
-        dispatch({ type: actionTypes.PENDING })
-        requestWithoutToken(`${apiHost}/user/sign-out`, 'POST', data)
-            .then(() => {
-                dispatch({ type: actionTypes.LOGOUT_SUCCESS });
-                history.push('/login')
-            })
-            .catch((error) => {
-                dispatch({ type: actionTypes.ERROR, error: error.message })
-            });
-    }
-}
 export function contact(data) {
     return (dispatch) => {
         dispatch({ type: actionTypes.PENDING })
