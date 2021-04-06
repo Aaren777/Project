@@ -7,9 +7,6 @@ import { logout } from '../../store/actions';
 
 
 function NavMenu({ props,  isAuthenticated }) {
-// const hundleSubmit = () =>{
-//   return logout
-// }
   return (
     <Navbar bg="dark" variant="dark" align-self= "flex-end">
       <Nav className={Styles.nav}>
@@ -42,7 +39,6 @@ function NavMenu({ props,  isAuthenticated }) {
           isAuthenticated ?
             <Button
             onClick= {()=>props.logout(
-              console.log('asdnasdkjb')
             )}
             >
             Log Out
