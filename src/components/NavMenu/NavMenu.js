@@ -3,10 +3,14 @@ import { Nav, Navbar, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import Styles from './NavMenuStyle.module.css';
 import { connect } from 'react-redux';
-import { logout } from '../../store/actions';
+import { logout } from '../../helpers/auth';
 
 
-function NavMenu({ props,  isAuthenticated }) {
+function NavMenu({  isAuthenticated }) {
+function hundlesubmit () {
+  logout()
+}
+
   return (
     <Navbar bg="dark" variant="dark" align-self= "flex-end">
       <Nav className={Styles.nav}>
@@ -38,9 +42,7 @@ function NavMenu({ props,  isAuthenticated }) {
         {
           isAuthenticated ?
             <Button
-            onClick= {()=>props.logout(
-              'token'
-            )}
+            onClick= {hundlesubmit}
             >
             Log Out
             </Button>
@@ -69,7 +71,4 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.isAuthenticated
   };
 };
-const mapDispatchToProps = {
-  logout
-};
-export default connect(mapStateToProps, mapDispatchToProps)(NavMenu);
+export default connect(mapStateToProps)(NavMenu);
