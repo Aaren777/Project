@@ -39,6 +39,7 @@ function NavMenu({ props,  isAuthenticated }) {
           isAuthenticated ?
             <Button
             onClick= {()=>props.logout(
+              'token'
             )}
             >
             Log Out
