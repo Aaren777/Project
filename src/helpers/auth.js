@@ -63,5 +63,5 @@ export const getToken = () => {
 export function logout() {
     localStorage.removeItem('token');
     store.dispatch({ type: LOGOUT_SUCCESS });
-    push.history('/login');
+    history.push('/login');
 }
