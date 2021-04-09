@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import Styles from './toDo.module.css';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import Task from '../../Task/task';
 import NewTask from '../../NewTask/NewTask';
